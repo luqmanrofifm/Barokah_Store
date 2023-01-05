@@ -11,6 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BarokahStore">
         <activity
+            android:name=".input_pricelist.NewPriceListActivity" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
