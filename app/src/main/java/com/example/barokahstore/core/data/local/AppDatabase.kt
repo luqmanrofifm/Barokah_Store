@@ -9,7 +9,7 @@ import com.example.barokahstore.core.data.local.entity.PriceListEntity
     entities = [
         PriceListEntity::class,
     ],
-    version = 2,
+    version = 3,
     exportSchema = false)
 abstract class AppDatabase: RoomDatabase(){
 

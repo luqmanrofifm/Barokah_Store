@@ -12,7 +12,15 @@
         android:id="@+id/rvDaftarHarga"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_cardview_daftarharga"/>
+
+    <TextView
+        android:id="@+id/tvEmptyAdapter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Data Kosong" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabNewPriceList"

@@ -2,6 +2,7 @@ package com.example.barokahstore
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,8 +17,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
 
-//    private lateinit var rvDaftarHarga : RecyclerView
-    private var list = ArrayList<HargaBarang>()
+    private var priceListAdapter = PriceListAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,23 +25,38 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-//        rvDaftarHarga = findViewById(R.id.rv_daftar_harga)
-//        rvDaftarHarga.setHasFixedSize(true)
-        binding.rvDaftarHarga.setHasFixedSize(true)
+        initView()
+        initListener()
+        initObserver()
+    }
 
-        list.addAll(DataHarga.listData)
-        showRecyclerList()
+    private fun initObserver() {
+        viewModel.allPriceList.observe(this) {
+            if (it.isEmpty()) {
+                binding.tvEmptyAdapter.visibility = View.VISIBLE
+                binding.rvDaftarHarga.visibility = View.GONE
+                Log.d("cek", "masuk")
+            } else {
+                Log.d("cek", "kosong")
+                binding.tvEmptyAdapter.visibility = View.GONE
+                binding.rvDaftarHarga.visibility = View.VISIBLE
 
+                it.let {
+                    priceListAdapter.submitList(it)
+                }
+            }
+        }
+    }
+
+    private fun initListener() {
         binding.fabNewPriceList.setOnClickListener{
             NewPriceListActivity.start(this)
         }
     }
 
-    private fun showRecyclerList() {
-        binding.rvDaftarHarga.layoutManager = LinearLayoutManager(this)
-        val listDaftarHargaAdapter = DaftarHargaAdapter(list)
-        binding.rvDaftarHarga.adapter = listDaftarHargaAdapter
-
+    private fun initView() {
+        viewModel.getPriceList()
+        binding.rvDaftarHarga.adapter = priceListAdapter
     }
 
 

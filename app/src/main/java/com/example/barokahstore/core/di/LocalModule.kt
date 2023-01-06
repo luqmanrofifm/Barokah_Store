@@ -17,7 +17,7 @@ object LocalModule {
     @Singleton
     @Provides
     fun provideRoomDatabase(@ApplicationContext context: Context): AppDatabase =
-        Room.databaseBuilder(context, AppDatabase::class.java, "litosite.db")
+        Room.databaseBuilder(context, AppDatabase::class.java, "BarokahStore.db")
             .allowMainThreadQueries()
             .fallbackToDestructiveMigration()
             .build()
