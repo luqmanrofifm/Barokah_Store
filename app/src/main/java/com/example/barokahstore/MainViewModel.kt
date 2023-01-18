@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.barokahstore.core.data.local.entity.PriceListEntity
-import com.example.barokahstore.core.domain.usecase.GetAllPriceListUseCase
+import com.example.barokahstore.core.domain.usecase.local.GetAllPriceListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

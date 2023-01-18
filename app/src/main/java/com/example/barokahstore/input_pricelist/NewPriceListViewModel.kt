@@ -1,16 +1,22 @@
 package com.example.barokahstore.input_pricelist
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.barokahstore.core.data.local.entity.PriceListEntity
-import com.example.barokahstore.core.domain.usecase.AddPriceListUseCase
+import com.example.barokahstore.core.data.remote.ResultApi
+import com.example.barokahstore.core.domain.usecase.local.AddPriceListUseCase
+import com.example.barokahstore.core.domain.usecase.remote.AddPriceListRemoteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel
 class NewPriceListViewModel @Inject constructor(
-    private val addPriceListUseCase: AddPriceListUseCase
+    private val addPriceListUseCase: AddPriceListUseCase,
+    private val addPriceListRemoteUseCase: AddPriceListRemoteUseCase
 ) : ViewModel()  {
     val isAllFilledEvent = MutableLiveData<Boolean>()
     val successSaveEvent = MutableLiveData<Boolean>()
@@ -43,16 +49,29 @@ class NewPriceListViewModel @Inject constructor(
     }
 
     fun addPriceList(){
-        val data = PriceListEntity(
-            nama = namaBarang,
-            harga = hargaBarang,
-            keterangan = keterangan
-        )
+//        val data = PriceListEntity(
+//            nama = namaBarang,
+//            harga = hargaBarang,
+//            keterangan = keterangan
+//        )
+//
+//        runBlocking {
+//            addPriceListUseCase.invoke(data)
+//        }
+//
+//        successSaveEvent.value = true
 
-        runBlocking {
-            addPriceListUseCase.invoke(data)
+        viewModelScope.launch {
+            when ( val response = addPriceListRemoteUseCase.invoke(namaBarang, hargaBarang, keterangan)){
+                is ResultApi.Success -> {
+                    successSaveEvent.value = true
+                }
+
+                is ResultApi.Failure -> {
+                    successSaveEvent.value  = false
+                    Log.e("API_ERROR", "Input gagal, message: ${response.reason.message}")
+                }
+            }
         }
-
-        successSaveEvent.value = true
     }
 }

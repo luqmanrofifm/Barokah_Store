@@ -1,4 +1,4 @@
-package com.example.barokahstore.core.domain.usecase
+package com.example.barokahstore.core.domain.usecase.local
 
 import androidx.lifecycle.LiveData
 import com.example.barokahstore.core.data.local.entity.PriceListEntity
