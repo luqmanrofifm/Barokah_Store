@@ -4,7 +4,8 @@ object ResponseModel {
     data class Result(
         var status: String = "",
         var message: String = "",
-        //var data: List<PriceItem> = emptyList()
+        var list_id: List<Int> = emptyList(),
+        var data: List<PriceItem> = emptyList()
     )
     data class PriceItem(
         var id: Int = 0,

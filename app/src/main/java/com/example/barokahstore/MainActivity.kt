@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.barokahstore.core.ui.DialogCustomProgress
+import com.example.barokahstore.core.utils.isNetworkAvailable
 import com.example.barokahstore.databinding.ActivityMainBinding
 import com.example.barokahstore.input_pricelist.NewPriceListActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,6 +30,13 @@ class MainActivity : AppCompatActivity() {
         initObserver()
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (isNetworkAvailable(this)){
+            viewModel.synchronizeData()
+        }
+    }
+
     private fun initObserver() {
         viewModel.allPriceList.observe(this) {
             if (it.isEmpty()) {
@@ -45,6 +52,10 @@ class MainActivity : AppCompatActivity() {
                     priceListAdapter.submitList(it)
                 }
             }
+        }
+
+        viewModel.loadingEvent.observe(this){
+            DialogCustomProgress.toggle(supportFragmentManager, it)
         }
     }
 

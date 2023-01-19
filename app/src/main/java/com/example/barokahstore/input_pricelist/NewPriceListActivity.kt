@@ -6,8 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
-import com.example.barokahstore.R
-import com.example.barokahstore.databinding.ActivityMainBinding
 import com.example.barokahstore.databinding.ActivityNewPriceListBinding
 import dagger.hilt.android.AndroidEntryPoint
 

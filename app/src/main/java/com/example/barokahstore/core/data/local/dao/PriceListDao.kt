@@ -15,6 +15,15 @@ interface PriceListDao {
     @Query("DELETE FROM price_list")
     suspend fun deleteAllData()
 
+    @Query("DELETE FROM price_list where id =:id")
+    suspend fun deleteData(id: Int)
+
     @Query("SELECT * FROM price_list")
     fun getAllPriceList(): LiveData<List<PriceListEntity>>
+
+    @Query("SELECT * FROM price_list")
+    fun getAllPriceListNotLive(): List<PriceListEntity>
+
+    @Query("SELECT id FROM price_list")
+    fun getIdPriceList(): List<Int>
 }

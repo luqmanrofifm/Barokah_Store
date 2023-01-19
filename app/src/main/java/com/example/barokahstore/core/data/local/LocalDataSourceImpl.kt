@@ -26,7 +26,21 @@ class LocalDataSourceImpl @Inject constructor(
         }
     }
 
+    override fun deleteById(id: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            priceListDao.deleteData(id)
+        }
+    }
+
     override fun getDataALl(): LiveData<List<PriceListEntity>> {
         return priceListDao.getAllPriceList()
+    }
+
+    override fun getDataAllNotLive(): List<PriceListEntity> {
+        return priceListDao.getAllPriceListNotLive()
+    }
+
+    override fun getListId(): List<Int> {
+        return priceListDao.getIdPriceList()
     }
 }

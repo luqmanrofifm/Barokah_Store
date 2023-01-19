@@ -8,5 +8,11 @@ interface LocalDataRepository {
 
     fun deleteAll()
 
+    fun deleteById(id: Int)
+
     fun getDataALl(): LiveData<List<PriceListEntity>>
+
+    fun getDataAllNotLive(): List<PriceListEntity>
+
+    fun getListId(): List<Int>
 }

@@ -6,7 +6,8 @@ import retrofit2.http.*
 
 interface ApiService {
 
-    @GET("/")
+    @Headers("Content-Type: application/json")
+    @GET("api/item/")
     suspend fun getData(): Response<JsonObject>
 
     @Headers("Content-Type: application/json")

@@ -18,7 +18,8 @@ class RemoteDataSourceImpl @Inject constructor(
         return safeApiCall {
             val data = apiService.getData()
             if (data.isSuccessful){
-                val result = data.body() as ResponseModel.Result
+                val bodyResponse = data.body()
+                val result = Gson().fromJson(bodyResponse, ResponseModel.Result::class.java)
                 //result.data.map { PriceListEntity(it.id, it.nama, it.price, it.deskripsi) }
                 ResultApi.Success(result)
             } else {
