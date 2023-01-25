@@ -26,4 +26,10 @@ interface PriceListDao {
 
     @Query("SELECT id FROM price_list")
     fun getIdPriceList(): List<Int>
+
+    @Query("SELECT * FROM price_list where id =:id")
+    fun getDataById(id: Int): PriceListEntity
+
+    @Query("UPDATE price_list SET nama=:nama, harga=:harga, keterangan=:keterangan WHERE id=:id")
+    suspend fun updatePriceList( id: Int, nama: String, harga: Int, keterangan: String)
 }

@@ -43,4 +43,14 @@ class LocalDataSourceImpl @Inject constructor(
     override fun getListId(): List<Int> {
         return priceListDao.getIdPriceList()
     }
+
+    override fun getById(id: Int): PriceListEntity {
+        return priceListDao.getDataById(id)
+    }
+
+    override fun updatePriceList(data: PriceListEntity) {
+        CoroutineScope(Dispatchers.IO).launch {
+            priceListDao.updatePriceList(id = data.id, nama = data.nama, harga = data.harga, keterangan = data.keterangan)
+        }
+    }
 }

@@ -61,7 +61,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun initListener() {
         binding.fabNewPriceList.setOnClickListener{
-            NewPriceListActivity.start(this)
+            NewPriceListActivity.start(this, 0)
+        }
+
+        priceListAdapter.onDeletePriceListEntity ={
+            viewModel.deletePriceList(it.id)
+        }
+
+        priceListAdapter.onEditPriceListEntity = {
+            NewPriceListActivity.start(this, it.id)
         }
     }
 

@@ -15,4 +15,9 @@ interface LocalDataRepository {
     fun getDataAllNotLive(): List<PriceListEntity>
 
     fun getListId(): List<Int>
+
+    fun getById(id: Int): PriceListEntity
+
+    fun updatePriceList(data: PriceListEntity)
+
 }

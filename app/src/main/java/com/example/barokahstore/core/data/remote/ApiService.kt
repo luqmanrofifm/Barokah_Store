@@ -16,12 +16,15 @@ interface ApiService {
         @Body payload: PriceListRequest
     ): Response<JsonObject>
 
-    @PUT("/")
+    @Headers("Content-Type: application/json")
+    @PUT("api/item/{id}")
     suspend fun updateData(
-        @Body payload: PriceListRequest
+        @Body payload: PriceListRequest,
+        @Path("id") id: Int
     ): Response<JsonObject>
 
-    @DELETE("/{id}")
+    @Headers("Content-Type: application/json")
+    @DELETE("api/item/{id}")
     suspend fun deleteData(
         @Path("id") id: Int
     ): Response<JsonObject>

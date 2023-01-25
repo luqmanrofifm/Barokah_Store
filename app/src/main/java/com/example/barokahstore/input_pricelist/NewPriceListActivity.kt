@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
 import com.example.barokahstore.databinding.ActivityNewPriceListBinding
@@ -15,11 +16,26 @@ class NewPriceListActivity : AppCompatActivity() {
 
     private val viewModel: NewPriceListViewModel by viewModels()
 
+    private val id by lazy {
+        intent.getIntExtra(EXTRA_ID, 0)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNewPriceListBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        if (id != 0) {
+            viewModel.getDetailLocalPriceList(id)
+            binding.btnCreateNewPriceList.text = "Ubah Harga Barang"
+
+            viewModel.getLocalDataEvent.observe(this) {
+                binding.edtNamaBarang.setText(it.nama)
+                binding.edtHargaBarang.setText(it.harga.toString())
+                binding.edtKeterangan.setText(it.keterangan)
+            }
+        }
 
         initView()
         initListener()
@@ -40,7 +56,11 @@ class NewPriceListActivity : AppCompatActivity() {
 
     private fun initListener() {
         binding.btnCreateNewPriceList.setOnClickListener {
-            viewModel.addPriceList()
+            if (id == 0){
+                viewModel.addPriceList()
+            } else {
+                viewModel.updatePriceList(id)
+            }
         }
     }
 
@@ -90,9 +110,10 @@ class NewPriceListActivity : AppCompatActivity() {
     }
 
     companion object {
-
-        fun start(context: Context?) {
+        const val EXTRA_ID = "extra_id"
+        fun start(context: Context?, id: Int) {
             val intent = Intent(context, NewPriceListActivity::class.java)
+            intent.putExtra(EXTRA_ID, id)
             context?.startActivity(intent)
         }
     }

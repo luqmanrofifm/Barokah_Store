@@ -8,10 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.barokahstore.core.data.local.entity.PriceListEntity
 import com.example.barokahstore.core.data.remote.ResultApi
 import com.example.barokahstore.core.data.remote.response.ResponseModel
-import com.example.barokahstore.core.domain.usecase.local.AddPriceListUseCase
-import com.example.barokahstore.core.domain.usecase.local.DeleteByIdUseCase
-import com.example.barokahstore.core.domain.usecase.local.GetAllPriceListUseCase
-import com.example.barokahstore.core.domain.usecase.local.GetListIdPriceListUseCase
+import com.example.barokahstore.core.domain.usecase.local.*
+import com.example.barokahstore.core.domain.usecase.remote.DeletePriceListRemoteUseCase
 import com.example.barokahstore.core.domain.usecase.remote.GetPriceListRemoteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -24,20 +22,39 @@ class MainViewModel @Inject constructor(
     private val getPriceListRemoteUseCase: GetPriceListRemoteUseCase,
     private val getListIdPriceListUseCase: GetListIdPriceListUseCase,
     private val addPriceListUseCase: AddPriceListUseCase,
-    private val deleteByIdUseCase: DeleteByIdUseCase
+    private val deleteByIdUseCase: DeleteByIdUseCase,
+    private val deletePriceListRemoteUseCase: DeletePriceListRemoteUseCase,
+    private val updatePriceListUseCase: UpdatePriceListUseCase
 ): ViewModel() {
     lateinit var allPriceList: LiveData<List<PriceListEntity>>
     val loadingEvent = MutableLiveData<Boolean>()
-   // val errorApiEvent = MutableLiveData<Boolean>()
 
     init {
         loadingEvent.value = false
-        //errorApiEvent.value = false
     }
 
     fun getPriceList(){
         viewModelScope.launch{
             allPriceList = getAllPriceListUseCase.invoke()
+        }
+    }
+
+    fun deletePriceList(id: Int){
+        viewModelScope.launch {
+            loadingEvent.value = true
+
+            when ( val response = deletePriceListRemoteUseCase.invoke(id)){
+                is ResultApi.Success -> {
+                    //successSaveEvent.value = true
+                    deleteByIdUseCase.invoke(id)
+                }
+
+                is ResultApi.Failure -> {
+                    //successSaveEvent.value  = false
+                    Log.e("API_ERROR", "Input gagal, message: ${response.reason.message}")
+                }
+            }
+            loadingEvent.value = false
         }
     }
 
@@ -52,13 +69,32 @@ class MainViewModel @Inject constructor(
             when ( val response = getPriceListRemoteUseCase.invoke()){
                 is ResultApi.Success -> {
                     //successSaveEvent.value = true
-                    Log.d("API_SUKESE", "sukses gan")
+                    Log.d("API_SUKSES", "sukses gan")
                     if (response.value.data.isNotEmpty()){
                         listIdRemote = response.value.list_id
                         listDataRemote = response.value.data
 
                         val newData = listIdRemote.subtract(listId.intersect(listIdRemote.toSet()))
                         val deletedData = listId.subtract(listId.intersect(listIdRemote.toSet()))
+                        val intersectData = listId.intersect(listIdRemote.toSet())
+
+                        if (intersectData.isNotEmpty()){
+                            Log.d("cek intersect", "masuk")
+                            val filterData = listDataRemote.filter { intersectData.contains(it.id) }
+                            filterData.forEach {data ->
+                                Log.d("cek intersect", data.nama)
+                                val entity = PriceListEntity(
+                                    id = data.id,
+                                    nama = data.nama,
+                                    harga = data.price,
+                                    keterangan = data.deskripsi
+                                )
+
+                                runBlocking {
+                                    updatePriceListUseCase.invoke(entity)
+                                }
+                            }
+                        }
 
                         if (newData.isNotEmpty()){
                             val filterData = listDataRemote.filter { newData.contains(it.id) }

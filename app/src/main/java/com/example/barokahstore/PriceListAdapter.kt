@@ -11,12 +11,23 @@ import com.example.barokahstore.databinding.ItemCardviewDaftarhargaBinding
 class PriceListAdapter: ListAdapter<PriceListEntity, PriceListAdapter.PriceListActvityViewHolder>(
     PriceListActivityDiffCallback()
 ) {
+    var onDeletePriceListEntity: ((PriceListEntity) -> Unit)? = null
+    var onEditPriceListEntity: ((PriceListEntity) -> Unit)? = null
+
     inner class PriceListActvityViewHolder(private val binding: ItemCardviewDaftarhargaBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: PriceListEntity){
             with(binding){
                 tvJudul.text = item.nama
                 tvHarga.text = item.harga.toString()
                 tvKeterangan.text = item.keterangan
+
+                btnDeleteItem.setOnClickListener {
+                    onDeletePriceListEntity?.invoke(item)
+                }
+
+                btnEditItem.setOnClickListener {
+                    onEditPriceListEntity?.invoke(item)
+                }
             }
         }
     }
