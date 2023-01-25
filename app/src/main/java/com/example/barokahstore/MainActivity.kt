@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
 
                 it.let {
                     priceListAdapter.submitList(it)
+                    priceListAdapter.notifyDataSetChanged()
                 }
             }
         }
