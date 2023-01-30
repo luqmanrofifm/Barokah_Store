@@ -16,10 +16,17 @@ suspend fun <T : Any> safeApiCall(requestFunc: suspend () -> ResultApi<T, ErrorR
 
         when (e) {
 
-            is  SocketTimeoutException, is UnknownHostException -> {
+            is  SocketTimeoutException -> {
                 ResultApi.Failure(ErrorResponse(
                     status = "Failed",
-                    message = "Tidak ada internet"
+                    message = "Server Timeout, coba lagi nanti"
+                ))
+            }
+
+            is UnknownHostException -> {
+                ResultApi.Failure(ErrorResponse(
+                    status = "Failed",
+                    message = "Server error"
                 ))
             }
 

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
+import com.example.barokahstore.core.ui.BottomSheetWarning
 import com.example.barokahstore.core.ui.DialogCustomProgress
 import com.example.barokahstore.core.utils.isNetworkAvailable
 import com.example.barokahstore.databinding.ActivityMainBinding
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         if (isNetworkAvailable(this)){
-            viewModel.synchronizeData()
+            viewModel.synchronizeData(this)
         }
     }
 
@@ -66,7 +67,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         priceListAdapter.onDeletePriceListEntity ={
-            viewModel.deletePriceList(it.id)
+            BottomSheetWarning.Builder(
+                supportFragmentManager,
+                title = "Konfimasi",
+                message = "Apakah anda yakin ingin menghapus data ini",
+                positiveText = "ya",
+                negativeText = "batal",
+                okListener = {
+                    viewModel.deletePriceList(it.id)
+                }
+            )
+                .show()
         }
 
         priceListAdapter.onEditPriceListEntity = {

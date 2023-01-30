@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
+import com.example.barokahstore.core.ui.DialogCustomProgress
 import com.example.barokahstore.databinding.ActivityNewPriceListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,7 +37,9 @@ class NewPriceListActivity : AppCompatActivity() {
                 binding.edtKeterangan.setText(it.keterangan)
             }
         }
-
+        viewModel.finishActivity = {
+            this.finish()
+        }
         initView()
         initListener()
         initObserver()
@@ -52,14 +55,19 @@ class NewPriceListActivity : AppCompatActivity() {
         viewModel.isAllFilledEvent.observe(this){
             binding.btnCreateNewPriceList.isEnabled = it
         }
+
+        viewModel.loadingEvent.observe(this){
+            DialogCustomProgress.toggle(supportFragmentManager, it)
+        }
     }
 
     private fun initListener() {
         binding.btnCreateNewPriceList.setOnClickListener {
             if (id == 0){
-                viewModel.addPriceList()
+
+                viewModel.addPriceList(this)
             } else {
-                viewModel.updatePriceList(id)
+                viewModel.updatePriceList(id, this)
             }
         }
     }

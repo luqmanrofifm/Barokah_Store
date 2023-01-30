@@ -24,7 +24,8 @@ class RemoteDataSourceImpl @Inject constructor(
                 ResultApi.Success(result)
             } else {
                 try {
-                    ResultApi.Failure(data.errorBody() as ErrorResponse)
+                    val response = Gson().fromJson(data.errorBody()!!.charStream(), ErrorResponse::class.java)
+                    ResultApi.Failure(response)
                 } catch (e: Exception){
                     ResultApi.Failure(ErrorResponse(
                         status = "Failed",
@@ -51,7 +52,8 @@ class RemoteDataSourceImpl @Inject constructor(
             } else {
                 Log.e("BODY API","masuk sini")
                 try {
-                    ResultApi.Failure(data.errorBody() as ErrorResponse)
+                    val response = Gson().fromJson(data.errorBody()!!.charStream(), ErrorResponse::class.java)
+                    ResultApi.Failure(response)
                 } catch (e: Exception){
                     ResultApi.Failure(ErrorResponse(
                         status = "Failed",
@@ -78,7 +80,8 @@ class RemoteDataSourceImpl @Inject constructor(
             } else {
                 Log.e("BODY API","masuk sini")
                 try {
-                    ResultApi.Failure(data.errorBody() as ErrorResponse)
+                    val response = Gson().fromJson(data.errorBody()!!.charStream(), ErrorResponse::class.java)
+                    ResultApi.Failure(response)
                 } catch (e: Exception){
                     ResultApi.Failure(ErrorResponse(
                         status = "Failed",
@@ -98,7 +101,8 @@ class RemoteDataSourceImpl @Inject constructor(
                 ResultApi.Success(result)
             } else {
                 try {
-                    ResultApi.Failure(data.errorBody() as ErrorResponse)
+                    val response = Gson().fromJson(data.errorBody()!!.charStream(), ErrorResponse::class.java)
+                    ResultApi.Failure(response)
                 } catch (e: Exception){
                     ResultApi.Failure(ErrorResponse(
                         status = "Failed",

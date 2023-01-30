@@ -1,5 +1,6 @@
 package com.example.barokahstore
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,6 +12,7 @@ import com.example.barokahstore.core.data.remote.response.ResponseModel
 import com.example.barokahstore.core.domain.usecase.local.*
 import com.example.barokahstore.core.domain.usecase.remote.DeletePriceListRemoteUseCase
 import com.example.barokahstore.core.domain.usecase.remote.GetPriceListRemoteUseCase
+import com.example.barokahstore.core.utils.showErrorDialog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -58,7 +60,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun synchronizeData(){
+    fun synchronizeData(context: Context){
         val listId = getListIdPriceListUseCase.invoke()
         var listIdRemote: List<Int>
         var listDataRemote: List<ResponseModel.PriceItem>
@@ -126,7 +128,9 @@ class MainViewModel @Inject constructor(
                 is ResultApi.Failure -> {
                     //successSaveEvent.value  = false
                     Log.e("API_ERROR", "Input gagal, message: ${response.reason.message}")
-
+                    response.reason.message?.let {
+                        showErrorDialog(context, it)
+                    }
                 }
             }
             loadingEvent.value = false

@@ -1,6 +1,8 @@
 package com.example.barokahstore.core.utils
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -41,3 +43,25 @@ fun isNetworkAvailable(context: Context): Boolean{
 //    }
 //    return false
 //}
+
+fun showErrorDialog(context: Context, message: String, okListener: (() -> Unit)? = null){
+    lateinit var dialog: AlertDialog
+
+    val builder = AlertDialog.Builder( context)
+
+    builder.setTitle("Error")
+    builder.setMessage(message)
+
+
+    val dialogClickListener = DialogInterface.OnClickListener{
+            _, which ->
+        when(which){
+            DialogInterface.BUTTON_POSITIVE -> okListener?.invoke()
+        }
+    }
+
+    builder.setPositiveButton("OK",dialogClickListener)
+
+    dialog = builder.create()
+    dialog.show()
+}
