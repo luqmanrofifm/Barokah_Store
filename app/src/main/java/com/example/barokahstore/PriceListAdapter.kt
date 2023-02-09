@@ -43,6 +43,10 @@ class PriceListAdapter: ListAdapter<PriceListEntity, PriceListAdapter.PriceListA
             newItem: PriceListEntity
         ): Boolean {
             return oldItem.id == newItem.id
+                    && oldItem.harga == newItem.harga
+                    && oldItem.nama == newItem.nama
+                    && oldItem.satuan == newItem.satuan
+                    && oldItem.keterangan == newItem.keterangan
         }
 
     }

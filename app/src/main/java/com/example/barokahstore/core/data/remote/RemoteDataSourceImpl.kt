@@ -51,7 +51,6 @@ class RemoteDataSourceImpl @Inject constructor(
                 //result.data.map { PriceListEntity(it.id, it.nama, it.price, it.deskripsi) }
                 ResultApi.Success(result)
             } else {
-                Log.e("BODY API","masuk sini")
                 try {
                     val response = Gson().fromJson(data.errorBody()!!.charStream(), ErrorResponse::class.java)
                     ResultApi.Failure(response)
@@ -80,7 +79,6 @@ class RemoteDataSourceImpl @Inject constructor(
                 //result.data.map { PriceListEntity(it.id, it.nama, it.price, it.deskripsi) }
                 ResultApi.Success(result)
             } else {
-                Log.e("BODY API","masuk sini")
                 try {
                     val response = Gson().fromJson(data.errorBody()!!.charStream(), ErrorResponse::class.java)
                     ResultApi.Failure(response)

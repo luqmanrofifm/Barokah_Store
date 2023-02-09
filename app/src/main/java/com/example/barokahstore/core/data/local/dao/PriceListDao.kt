@@ -18,7 +18,7 @@ interface PriceListDao {
     @Query("DELETE FROM price_list where id =:id")
     suspend fun deleteData(id: Int)
 
-    @Query("SELECT * FROM price_list")
+    @Query("SELECT * FROM price_list ORDER BY nama")
     fun getAllPriceList(): LiveData<List<PriceListEntity>>
 
     @Query("SELECT * FROM price_list where nama LIKE :word")

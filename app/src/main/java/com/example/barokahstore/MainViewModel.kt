@@ -36,6 +36,11 @@ class MainViewModel @Inject constructor(
         loadingEvent.value = false
     }
 
+    private var wordSearch = ""
+    fun setWordSearch(word: String) {
+        wordSearch = word
+    }
+
     fun getPriceList(){
         viewModelScope.launch{
             allPriceList = getAllPriceListUseCase.invoke()
@@ -67,7 +72,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun synchronizeData(context: Context){
+    fun synchronizeData(context: Context, adapter: PriceListAdapter){
         val listId = getListIdPriceListUseCase.invoke()
         var listIdRemote: List<Int>
         var listDataRemote: List<ResponseModel.PriceItem>
@@ -108,8 +113,6 @@ class MainViewModel @Inject constructor(
                         if (newData.isNotEmpty()){
                             val filterData = listDataRemote.filter { newData.contains(it.id) }
                             filterData.forEach {data ->
-                                Log.d("cek intersect", data.nama)
-                                //Log.d("cek intersect", data.deskripsi.toString())
                                 val entity = PriceListEntity(
                                     id = data.id,
                                     nama = data.nama,
@@ -132,7 +135,7 @@ class MainViewModel @Inject constructor(
                             }
                         }
                     }
-
+                    adapter.notifyDataSetChanged()
                 }
 
                 is ResultApi.Failure -> {

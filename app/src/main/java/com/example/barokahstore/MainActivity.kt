@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
+import androidx.core.widget.doAfterTextChanged
 import com.example.barokahstore.core.ui.BottomSheetWarning
 import com.example.barokahstore.core.ui.DialogCustomProgress
 import com.example.barokahstore.core.utils.isNetworkAvailable
@@ -34,33 +35,18 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         if (isNetworkAvailable(this)){
-            viewModel.synchronizeData(this)
-            viewModel.allPriceList.observe(this) {
-                if (it.isEmpty()) {
-                    binding.tvEmptyAdapter.visibility = View.VISIBLE
-                    binding.rvDaftarHarga.visibility = View.GONE
-                    Log.d("cek", "masuk")
-                } else {
-                    Log.d("cek", "kosong")
-                    binding.tvEmptyAdapter.visibility = View.GONE
-                    binding.rvDaftarHarga.visibility = View.VISIBLE
-
-                    it.let {
-                        priceListAdapter.submitList(it)
-                    }
-                }
-            }
+            Log.d("cek", "resume terus")
+            viewModel.synchronizeData(this, priceListAdapter)
         }
     }
 
     private fun initObserver() {
         viewModel.allPriceList.observe(this) {
+
             if (it.isEmpty()) {
                 binding.tvEmptyAdapter.visibility = View.VISIBLE
                 binding.rvDaftarHarga.visibility = View.GONE
-                Log.d("cek", "masuk")
             } else {
-                Log.d("cek", "kosong")
                 binding.tvEmptyAdapter.visibility = View.GONE
                 binding.rvDaftarHarga.visibility = View.VISIBLE
 
@@ -105,9 +91,7 @@ class MainActivity : AppCompatActivity() {
                 if (it.isEmpty()) {
                     binding.tvEmptyAdapter.visibility = View.VISIBLE
                     binding.rvDaftarHarga.visibility = View.GONE
-                    Log.d("cek", "masuk")
                 } else {
-                    Log.d("cek", "kosong")
                     binding.tvEmptyAdapter.visibility = View.GONE
                     binding.rvDaftarHarga.visibility = View.VISIBLE
 
@@ -122,6 +106,27 @@ class MainActivity : AppCompatActivity() {
     private fun initView() {
         viewModel.getPriceList()
         binding.rvDaftarHarga.adapter = priceListAdapter
+        binding.edtNama.doAfterTextChanged {
+            if (it.toString().isNotEmpty()) {
+                viewModel.setWordSearch(it.toString())
+            }
+            else {
+                viewModel.getPriceList()
+                viewModel.allPriceList.observe(this) {
+                    if (it.isEmpty()) {
+                        binding.tvEmptyAdapter.visibility = View.VISIBLE
+                        binding.rvDaftarHarga.visibility = View.GONE
+                    } else {
+                        binding.tvEmptyAdapter.visibility = View.GONE
+                        binding.rvDaftarHarga.visibility = View.VISIBLE
+
+                        it.let {
+                            priceListAdapter.submitList(it)
+                        }
+                    }
+                }
+            }
+        }
     }
 
 
