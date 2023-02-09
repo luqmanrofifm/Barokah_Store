@@ -36,11 +36,12 @@ class RemoteDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun addPriceList(nama: String, harga: Int, keterangan: String): ResultApi<ResponseModel.Result, ErrorResponse> {
+    override suspend fun addPriceList(nama: String, harga: Int, satuan: String, keterangan: String): ResultApi<ResponseModel.Result, ErrorResponse> {
         return safeApiCall {
             val data = apiService.addData(PriceListRequest(
                 nama = nama,
                 price = harga,
+                satuan = satuan,
                 deskripsi = keterangan
             ))
 
@@ -64,11 +65,12 @@ class RemoteDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun updatePriceList(nama: String, harga: Int, keterangan: String, id: Int): ResultApi<ResponseModel.Result, ErrorResponse> {
+    override suspend fun updatePriceList(nama: String, harga: Int, satuan: String, keterangan: String, id: Int): ResultApi<ResponseModel.Result, ErrorResponse> {
         return safeApiCall {
             val data = apiService.updateData(PriceListRequest(
                 nama = nama,
                 price = harga,
+                satuan = satuan,
                 deskripsi = keterangan
             ), id)
 

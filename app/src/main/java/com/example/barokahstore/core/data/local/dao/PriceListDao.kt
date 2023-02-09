@@ -30,6 +30,6 @@ interface PriceListDao {
     @Query("SELECT * FROM price_list where id =:id")
     fun getDataById(id: Int): PriceListEntity
 
-    @Query("UPDATE price_list SET nama=:nama, harga=:harga, keterangan=:keterangan WHERE id=:id")
-    suspend fun updatePriceList( id: Int, nama: String, harga: Int, keterangan: String)
+    @Query("UPDATE price_list SET nama=:nama, harga=:harga, satuan=:satuan, keterangan=:keterangan WHERE id=:id")
+    suspend fun updatePriceList( id: Int, nama: String, harga: Int, satuan: String, keterangan: String)
 }

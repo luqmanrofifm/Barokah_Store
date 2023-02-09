@@ -11,6 +11,7 @@ object ResponseModel {
         var id: Int = 0,
         var nama: String = "",
         var price: Int = 0,
+        var satuan: String = "",
         var deskripsi: String = ""
     )
 }

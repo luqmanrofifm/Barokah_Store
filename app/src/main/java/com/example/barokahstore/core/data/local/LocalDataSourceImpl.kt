@@ -50,7 +50,7 @@ class LocalDataSourceImpl @Inject constructor(
 
     override fun updatePriceList(data: PriceListEntity) {
         CoroutineScope(Dispatchers.IO).launch {
-            priceListDao.updatePriceList(id = data.id, nama = data.nama, harga = data.harga, keterangan = data.keterangan)
+            priceListDao.updatePriceList(id = data.id, nama = data.nama, harga = data.harga, satuan = data.satuan, keterangan = data.keterangan)
         }
     }
 }

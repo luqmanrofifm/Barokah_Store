@@ -10,7 +10,7 @@ import javax.inject.Inject
 class AddPriceListRemoteUseCase @Inject constructor(
     private val  remoteDataRepository: RemoteDataRepository
 ) {
-    suspend fun invoke(nama: String, harga: Int, keterangan: String): ResultApi<ResponseModel.Result, ErrorResponse>{
-        return  remoteDataRepository.addPriceList(nama, harga, keterangan)
+    suspend fun invoke(nama: String, harga: Int, satuan: String, keterangan: String): ResultApi<ResponseModel.Result, ErrorResponse>{
+        return  remoteDataRepository.addPriceList(nama, harga, satuan, keterangan)
     }
 }

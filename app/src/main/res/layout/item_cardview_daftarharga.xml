@@ -30,25 +30,70 @@
             android:text="Judul barang"
             android:ellipsize="end"
             android:textSize="20dp"/>
-        <TextView
-            app:layout_constraintTop_toBottomOf="@+id/tv_judul"
-            android:id="@+id/tv_harga"
+
+        <TableLayout
+            android:id="@+id/tabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
+            android:layout_marginLeft="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_judul">
+            <TableRow
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+                <TextView
+                    android:text="Harga : "
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    android:ellipsize="end"/>
+                <TextView
+                    android:id="@+id/tv_harga"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:layout_marginLeft="4dp"
+                    android:textColor="@color/black"
+                    android:text="harga"
+                    android:textSize="18dp"/>
+            </TableRow>
+            <TableRow
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+                <TextView
+                    android:text="Satuan : "
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    android:ellipsize="end"/>
+                <TextView
+                    app:layout_constraintTop_toBottomOf="@+id/tabel"
+                    android:id="@+id/tv_satuan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:layout_marginLeft="4dp"
+                    android:textColor="@color/black"
+                    android:text="keterangan satuan"
+                    android:textSize="18dp"/>
+            </TableRow>
+        </TableLayout>
+
+        <TextView
+            app:layout_constraintTop_toBottomOf="@+id/tabel"
+            android:id="@+id/labelDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
+            android:ellipsize="end"
             android:textColor="@color/black"
-            android:text="harga"
+            android:text="Keterangan : "
             android:textSize="18dp"/>
         <TextView
-            app:layout_constraintTop_toBottomOf="@+id/tv_harga"
+            app:layout_constraintTop_toBottomOf="@+id/labelDesc"
             android:id="@+id/tv_keterangan"
-            android:layout_below="@+id/tv_harga"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="24dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:ellipsize="end"

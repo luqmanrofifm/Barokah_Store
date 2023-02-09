@@ -35,6 +35,7 @@ class NewPriceListViewModel @Inject constructor(
     private var namaBarang = ""
     private var hargaBarang = 0
     private var keterangan = ""
+    private var keteranganSatuan = ""
 
     init {
         isAllFilledEvent.value = false
@@ -42,7 +43,7 @@ class NewPriceListViewModel @Inject constructor(
         loadingEvent.value = false
     }
     private fun toggleNextButton() {
-        isAllFilledEvent.value = namaBarang.isNotEmpty() && hargaBarang.toString() != "0"
+        isAllFilledEvent.value = namaBarang.isNotEmpty() && hargaBarang.toString() != "0" && keteranganSatuan.isNotEmpty()
     }
 
     fun setNamaBarang(name: String) {
@@ -55,6 +56,11 @@ class NewPriceListViewModel @Inject constructor(
         toggleNextButton()
     }
 
+    fun setKeteranganSatuan(keterangan: String) {
+        keteranganSatuan = keterangan
+        toggleNextButton()
+    }
+
     fun setKeterangan(desc: String) {
         keterangan = desc
         toggleNextButton()
@@ -63,7 +69,7 @@ class NewPriceListViewModel @Inject constructor(
     fun addPriceList(context: Context){
         viewModelScope.launch {
             loadingEvent.value = true
-            when ( val response = addPriceListRemoteUseCase.invoke(namaBarang, hargaBarang, keterangan)){
+            when ( val response = addPriceListRemoteUseCase.invoke(namaBarang, hargaBarang, keteranganSatuan, keterangan)){
                 is ResultApi.Success -> {
                     loadingEvent.value = false
                     successSaveEvent.value = true
@@ -91,7 +97,7 @@ class NewPriceListViewModel @Inject constructor(
     fun updatePriceList(id: Int, context: Context){
         viewModelScope.launch {
             loadingEvent.value = true
-            when ( val response = updatePriceListRemoteUseCase.invoke(namaBarang, hargaBarang, keterangan, id)){
+            when ( val response = updatePriceListRemoteUseCase.invoke(namaBarang, hargaBarang,  keteranganSatuan, keterangan, id)){
                 is ResultApi.Success -> {
                     loadingEvent.value = false
                     successSaveEvent.value = true

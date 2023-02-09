@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         if (isNetworkAvailable(this)){
             viewModel.synchronizeData(this)
+            priceListAdapter.notifyDataSetChanged()
         }
     }
 
@@ -52,6 +53,7 @@ class MainActivity : AppCompatActivity() {
                 it.let {
                     priceListAdapter.submitList(it)
                     priceListAdapter.notifyDataSetChanged()
+                    priceListAdapter.
                 }
             }
         }

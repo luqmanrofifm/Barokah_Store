@@ -34,6 +34,7 @@ class NewPriceListActivity : AppCompatActivity() {
             viewModel.getLocalDataEvent.observe(this) {
                 binding.edtNamaBarang.setText(it.nama)
                 binding.edtHargaBarang.setText(it.harga.toString())
+                binding.edtKeteranganSatuan.setText(it.satuan)
                 binding.edtKeterangan.setText(it.keterangan)
             }
         }
@@ -102,6 +103,17 @@ class NewPriceListActivity : AppCompatActivity() {
                 else {
                     viewModel.setHargaBarang(0)
 
+                }
+            }
+
+            edtKeteranganSatuan.doAfterTextChanged {
+                if (it.toString().isNotEmpty()) {
+                    viewModel.setKeteranganSatuan(it.toString())
+                    binding.edtKeteranganSatuan.error = null
+                }
+                else {
+                    viewModel.setKeteranganSatuan("")
+                    binding.edtKeteranganSatuan.error = "Keterangan satuan harus diisi"
                 }
             }
 

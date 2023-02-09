@@ -9,5 +9,6 @@ data class PriceListEntity (
     var id: Int = 0,
     var nama: String,
     var harga: Int,
+    var satuan: String,
     var keterangan: String
 )

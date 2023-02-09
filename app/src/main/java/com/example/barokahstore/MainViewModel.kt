@@ -81,15 +81,15 @@ class MainViewModel @Inject constructor(
                         val intersectData = listId.intersect(listIdRemote.toSet())
 
                         if (intersectData.isNotEmpty()){
-                            Log.d("cek intersect", "masuk")
                             val filterData = listDataRemote.filter { intersectData.contains(it.id) }
                             filterData.forEach {data ->
-                                Log.d("cek intersect", data.nama)
+
                                 val entity = PriceListEntity(
                                     id = data.id,
                                     nama = data.nama,
                                     harga = data.price,
-                                    keterangan = data.deskripsi
+                                    satuan = data.satuan,
+                                    keterangan = if(data.deskripsi == null){""}else{data.deskripsi}
                                 )
 
                                 runBlocking {
@@ -101,11 +101,14 @@ class MainViewModel @Inject constructor(
                         if (newData.isNotEmpty()){
                             val filterData = listDataRemote.filter { newData.contains(it.id) }
                             filterData.forEach {data ->
+                                Log.d("cek intersect", data.nama)
+                                //Log.d("cek intersect", data.deskripsi.toString())
                                 val entity = PriceListEntity(
                                     id = data.id,
                                     nama = data.nama,
                                     harga = data.price,
-                                    keterangan = data.deskripsi
+                                    satuan = data.satuan,
+                                    keterangan = if(data.deskripsi == null){""}else{data.deskripsi}
                                 )
 
                                 runBlocking {

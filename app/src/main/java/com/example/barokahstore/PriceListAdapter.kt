@@ -20,6 +20,7 @@ class PriceListAdapter: ListAdapter<PriceListEntity, PriceListAdapter.PriceListA
                 tvJudul.text = item.nama
                 tvHarga.text = item.harga.toString()
                 tvKeterangan.text = item.keterangan
+                tvSatuan.text = item.satuan
 
                 btnDeleteItem.setOnClickListener {
                     onDeletePriceListEntity?.invoke(item)
