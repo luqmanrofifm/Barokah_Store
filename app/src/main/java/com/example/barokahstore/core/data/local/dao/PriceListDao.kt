@@ -21,6 +21,9 @@ interface PriceListDao {
     @Query("SELECT * FROM price_list")
     fun getAllPriceList(): LiveData<List<PriceListEntity>>
 
+    @Query("SELECT * FROM price_list where nama LIKE :word")
+    fun searchPriceList(word: String): LiveData<List<PriceListEntity>>
+
     @Query("SELECT * FROM price_list")
     fun getAllPriceListNotLive(): List<PriceListEntity>
 

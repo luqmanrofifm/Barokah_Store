@@ -35,7 +35,21 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         if (isNetworkAvailable(this)){
             viewModel.synchronizeData(this)
-            priceListAdapter.notifyDataSetChanged()
+            viewModel.allPriceList.observe(this) {
+                if (it.isEmpty()) {
+                    binding.tvEmptyAdapter.visibility = View.VISIBLE
+                    binding.rvDaftarHarga.visibility = View.GONE
+                    Log.d("cek", "masuk")
+                } else {
+                    Log.d("cek", "kosong")
+                    binding.tvEmptyAdapter.visibility = View.GONE
+                    binding.rvDaftarHarga.visibility = View.VISIBLE
+
+                    it.let {
+                        priceListAdapter.submitList(it)
+                    }
+                }
+            }
         }
     }
 
@@ -53,7 +67,6 @@ class MainActivity : AppCompatActivity() {
                 it.let {
                     priceListAdapter.submitList(it)
                     priceListAdapter.notifyDataSetChanged()
-                    priceListAdapter.
                 }
             }
         }
@@ -64,7 +77,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initListener() {
-        binding.fabNewPriceList.setOnClickListener{
+        binding.btnCreateNewPriceList.setOnClickListener{
             NewPriceListActivity.start(this, 0)
         }
 
@@ -84,6 +97,25 @@ class MainActivity : AppCompatActivity() {
 
         priceListAdapter.onEditPriceListEntity = {
             NewPriceListActivity.start(this, it.id)
+        }
+
+        binding.btnSearch.setOnClickListener {
+            viewModel.searchDataPriceList(binding.edtNama.text.toString())
+            viewModel.allPriceList.observe(this) {
+                if (it.isEmpty()) {
+                    binding.tvEmptyAdapter.visibility = View.VISIBLE
+                    binding.rvDaftarHarga.visibility = View.GONE
+                    Log.d("cek", "masuk")
+                } else {
+                    Log.d("cek", "kosong")
+                    binding.tvEmptyAdapter.visibility = View.GONE
+                    binding.rvDaftarHarga.visibility = View.VISIBLE
+
+                    it.let {
+                        priceListAdapter.submitList(it)
+                    }
+                }
+            }
         }
     }
 

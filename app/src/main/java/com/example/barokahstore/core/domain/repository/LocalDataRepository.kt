@@ -20,4 +20,6 @@ interface LocalDataRepository {
 
     fun updatePriceList(data: PriceListEntity)
 
+    fun searchData(word: String): LiveData<List<PriceListEntity>>
+
 }

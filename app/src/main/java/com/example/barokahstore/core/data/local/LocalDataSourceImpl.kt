@@ -53,4 +53,8 @@ class LocalDataSourceImpl @Inject constructor(
             priceListDao.updatePriceList(id = data.id, nama = data.nama, harga = data.harga, satuan = data.satuan, keterangan = data.keterangan)
         }
     }
+
+    override fun searchData(word: String): LiveData<List<PriceListEntity>> {
+        return priceListDao.searchPriceList("%${word}%")
+    }
 }

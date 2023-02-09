@@ -26,7 +26,8 @@ class MainViewModel @Inject constructor(
     private val addPriceListUseCase: AddPriceListUseCase,
     private val deleteByIdUseCase: DeleteByIdUseCase,
     private val deletePriceListRemoteUseCase: DeletePriceListRemoteUseCase,
-    private val updatePriceListUseCase: UpdatePriceListUseCase
+    private val updatePriceListUseCase: UpdatePriceListUseCase,
+    private val searchDataUseCase: SearchDataUseCase,
 ): ViewModel() {
     lateinit var allPriceList: LiveData<List<PriceListEntity>>
     val loadingEvent = MutableLiveData<Boolean>()
@@ -38,6 +39,12 @@ class MainViewModel @Inject constructor(
     fun getPriceList(){
         viewModelScope.launch{
             allPriceList = getAllPriceListUseCase.invoke()
+        }
+    }
+
+    fun searchDataPriceList(word: String){
+        viewModelScope.launch {
+            allPriceList = searchDataUseCase.invoke(word)
         }
     }
 
