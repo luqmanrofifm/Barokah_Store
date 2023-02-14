@@ -11,7 +11,7 @@ android {
     compileSdkVersion 31
 
     defaultConfig {
-        applicationId "com.example.barokahstore"
+        applicationId "com.barokahstore.app"
         minSdkVersion 21
         targetSdkVersion 31
         versionCode 1
