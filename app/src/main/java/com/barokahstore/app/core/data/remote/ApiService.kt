@@ -11,7 +11,7 @@ interface ApiService {
     suspend fun getData(): Response<JsonObject>
 
     @Headers("Content-Type: application/json")
-    @POST("api/item/")
+    @POST("api/item")
     suspend fun addData(
         @Body payload: PriceListRequest
     ): Response<JsonObject>
