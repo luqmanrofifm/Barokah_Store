@@ -16,56 +16,50 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:orientation="horizontal">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:id="@+id/edtNama"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:textAppearance="?attr/textAppearanceBody1" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:hint="cari"
+                android:background="@drawable/border_edit_text"/>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_gravity="center_vertical"
-            android:text="cari" />
-
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:text="cari" />
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        app:layout_constraintTop_toBottomOf="@id/llSearch"
-        app:layout_constraintBottom_toTopOf="@id/btnCreateNewPriceList"
-        android:id="@+id/rvDaftarHarga"
-        android:layout_height="0dp"
-        android:layout_width="match_parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_cardview_daftarharga"/>
+            <androidx.recyclerview.widget.RecyclerView
+                app:layout_constraintTop_toBottomOf="@id/llSearch"
+                app:layout_constraintBottom_toTopOf="@id/btnCreateNewPriceList"
+                android:id="@+id/rvDaftarHarga"
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_cardview_daftarharga"/>
 
-    <TextView
-        android:id="@+id/tvEmptyAdapter"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Data Kosong" />
+            <TextView
+                android:id="@+id/tvEmptyAdapter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Data Kosong" />
 
-    <com.google.android.material.button.MaterialButton
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/btnCreateNewPriceList"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="24dp"
-        android:text="tambah harga barang" />
+            <com.google.android.material.button.MaterialButton
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:id="@+id/btnCreateNewPriceList"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="24dp"
+                android:text="tambah harga barang" />
 
-    
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
