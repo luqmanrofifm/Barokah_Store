@@ -15,7 +15,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 31
         versionCode 1
-        versionName "1.0"
+        versionName "1.0 First release"
 
         buildConfigField("String", "BASE_URL", BASE_URL)
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
