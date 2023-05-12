@@ -22,16 +22,17 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:hint="cari"
-                android:background="@drawable/border_edit_text"/>
+                android:hint="@string/cari"
+                android:background="@drawable/border_edit_text"
+                android:inputType="text" />
 
             <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnSearch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
                     android:layout_gravity="center_vertical"
-                    android:text="cari" />
+                    android:text="@string/cari" />
     </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -50,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Data Kosong" />
+                android:text="@string/data_kosong" />
 
             <com.google.android.material.button.MaterialButton
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -59,7 +60,7 @@
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="24dp"
-                android:text="tambah harga barang" />
+                android:text="@string/tambah_harga_barang" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,7 +21,7 @@
                 android:id="@+id/edtNamaBarang"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="nama barang"
+                android:hint="@string/nama_barang"
                 android:inputType="textCapSentences"
                 android:maxLines="1"
                 android:textAppearance="?attr/textAppearanceBody1" />
@@ -37,7 +37,7 @@
                 android:id="@+id/edtHargaBarang"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="harga barang"
+                android:hint="@string/harga_barang"
                 android:inputType="textCapSentences"
                 android:maxLines="1"
                 android:textAppearance="?attr/textAppearanceBody1" />
@@ -53,7 +53,7 @@
                 android:id="@+id/edtKeteranganSatuan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="keterangan satuan"
+                android:hint="@string/keterangan_satuan"
                 android:inputType="textCapSentences"
                 android:textAppearance="?attr/textAppearanceBody1" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -68,7 +68,7 @@
                 android:id="@+id/edtKeterangan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="keterangan"
+                android:hint="@string/keterangan"
                 android:inputType="textCapSentences|textMultiLine"
                 android:textAppearance="?attr/textAppearanceBody1" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="24dp"
-            android:text="tambah harga barang" />
+            android:text="@string/tambah_harga_barang" />
 
     </LinearLayout>
 
